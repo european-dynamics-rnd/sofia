@@ -1,12 +1,6 @@
-FROM adoptopenjdk/openjdk11:jre11u-centos-nightly
+FROM eurodynrnd/sofia-backend:latest
 
 EXPOSE 15502
-
-ARG JAR_FILE=sofia-0.0.1.jar
-ADD ${JAR_FILE} app.jar
-
-ARG SOFIA_IMPORTS_FOLDER=sofia_imports
-ADD ${SOFIA_IMPORTS_FOLDER} sofia_imports
 
 ARG DB_IP
 ARG DB_PORT
