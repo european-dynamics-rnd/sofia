@@ -1,5 +1,24 @@
-version: "3.5"
+name: sofia
 services:
+ 
+  # Sofia Api Gateway 
+  sofia-api-gateway:
+    build:
+      context: sofia-api-gateway
+      args:
+        DB_IP: sofiadb
+        DB_PORT: 3306
+        DB_NAME: sofia
+        DB_USERNAME: root
+        DB_PASSWORD: root
+      dockerfile: Dockerfile
+    image: sofia-api-gateway
+    container_name: sofia-api-gateway
+    ports:
+      - "15502:15502"
+    restart: unless-stopped
+    networks:
+      - sofia_network
 
   # Sofia Backend application 
   sofia-backend:
@@ -11,6 +30,7 @@ services:
         DB_IP: sofiadb
         DB_PORT: 3306
         DB_NAME: sofia
+        DB_APP_NAME: application_db
         DB_USERNAME: root
         DB_PASSWORD: root
         REDIS_HOST: sofiaredis
@@ -20,7 +40,7 @@ services:
     image: sofia-backend
     container_name: sofia-backend
     ports:
-      - "15502:15502"
+      - "15504:15502"
     restart: unless-stopped
     depends_on:
       - sofiadb
@@ -54,6 +74,7 @@ services:
         DB_IP: sofiadb
         DB_PORT: 3306
         DB_NAME: sofia
+        DB_APP_NAME: application_db
         DB_USERNAME: root
         DB_PASSWORD: root
         REDIS_HOST: sofiaredis
@@ -95,7 +116,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sofia
     volumes:
-      - mysql-database:/var/lib/mysql
+      - sofia-database:/var/lib/mysql
     ports:
       - "3306:3306"
     restart: unless-stopped
@@ -161,4 +182,4 @@ networks:
     driver: bridge
 
 volumes:
-  mysql-database: ~
+  sofia-database: ~
