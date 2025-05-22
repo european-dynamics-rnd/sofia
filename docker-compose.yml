@@ -62,7 +62,9 @@ services:
     restart: unless-stopped
     networks:
       - sofia_network
-
+    volumes:
+      - ./frontend-container/test_plugin:/usr/share/nginx/html/assets/ui-plugins/test_plugin:cached
+      
   # Sofia Backend Author application
   sofia-backend-author:
     mem_limit: 1024m
