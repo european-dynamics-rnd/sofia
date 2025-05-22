@@ -1,0 +1,8 @@
+ .ds-form-options-button:hover {
+    border-color: #47BEBEE8;
+    background-color: #47BEBEE8;
+  }
+
+ #fd-status-div{
+   display: none !important;
+ }
